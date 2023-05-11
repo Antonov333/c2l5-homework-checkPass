@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CheckPasswordController {
 
-    private CheckPasswordService checkPasswordService = new CheckPasswordService();
+    private final CheckPasswordService checkPasswordService = new CheckPasswordService();
 
     @GetMapping
     public String firstMessage() {
@@ -17,7 +17,7 @@ public class CheckPasswordController {
 
     @GetMapping("/cpm")
     public String callCheckPassword() {
-        checkPasswordService.checkPassword("John", "ABCD", "ABCD");
+        CheckPasswordService.checkPassword("John", "ABCD", "ABCD");
         return "checkPassword method just completed";
 
     }
