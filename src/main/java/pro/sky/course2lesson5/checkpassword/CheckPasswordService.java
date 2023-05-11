@@ -51,6 +51,30 @@ public class CheckPasswordService {
      */
 
     public static void checkPassword(String login, String password, String confirmPassword) {
-        System.out.println("checkPassword method is here");
+        System.out.println("checkPassword is checking LOGIN: " + login + " PASSWORD: " + password +
+                " and CONFIRM PASSWORD: " + confirmPassword);
+        boolean b = allCharsValid(login);
+        if (!allCharsValid(login) || login.length() > 20) {
+            throw new RuntimeException("Wrong login format");
+        }
+        if (!allCharsValid(password) || login.length() > 19) {
+            throw new RuntimeException("Wrong password format");
+        }
+        if (!password.equals(confirmPassword)) {
+            throw new RuntimeException("Password confirmation failed");
+        }
+    }
+
+
+    public static boolean allCharsValid(String string) {
+        boolean b = true;
+        for (char c : string.toCharArray()) {
+            if (!Character.isLetterOrDigit(c) && c != '_') {
+                b = false;
+                return b;
+            }
+        }
+        return b;
     }
 }
+

@@ -17,10 +17,13 @@ public class CheckPasswordController {
 
     @GetMapping("/cpm")
     public String callCheckPassword() {
-        CheckPasswordService.checkPassword("John", "ABCD", "ABCD");
-        return "checkPassword method just completed";
-
+        try {
+            CheckPasswordService.checkPassword("John", "ABCD000000000000000000000000000",
+                    "ABCD");
+        } catch (RuntimeException runtimeException) {
+            System.out.println("runtimeException = " + runtimeException);
+        } finally {
+            return "checkPassword method just completed";
+        }
     }
-
-
 }
