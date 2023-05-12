@@ -2,20 +2,27 @@ package pro.sky.course2lesson5.checkpassword;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * 1) Совсем не обязательно было делать контроллер и вывод в браузер. На данном этапе это не требовалось.
+ * <p>
+ * 2) Можно обойтись только двумя видами исключений WrongLoginException и WrongPasswordException и при выбрасывании
+ * подкладывать в параметры конструктора нужное сообщение.
+ */
+
 @Service
 public class CheckPasswordService {
 
     public static void checkPassword(String login, String password, String confirmPassword)
-            throws WrongLoginException, WrongPasswordException, PasswordConfirmationFailedException {
+            throws WrongLoginException, WrongPasswordException {
         boolean b = allCharsValid(login);
         if (!allCharsValid(login) || login.length() > 20) {
-            throw new WrongLoginException();
+            throw new WrongLoginException("wrong Login format");
         }
         if (!allCharsValid(password) || password.length() > 19) {
-            throw new WrongPasswordException();
+            throw new WrongPasswordException("wrong Password format");
         }
         if (!password.equals(confirmPassword)) {
-            throw new PasswordConfirmationFailedException();
+            throw new WrongPasswordException("password confirmation failed");
         }
     }
 
@@ -44,11 +51,9 @@ public class CheckPasswordService {
         try {
             CheckPasswordService.checkPassword(login, password, confirmPassword);
         } catch (WrongLoginException wrongLoginException) {
-            message = concatAndPrint(message, "... " + wrongLoginException + ": wrong Login format");
+            message = concatAndPrint(message, "... " + wrongLoginException);
         } catch (WrongPasswordException w) {
-            message = concatAndPrint(message, "... " + w + ": wrong Password format");
-        } catch (PasswordConfirmationFailedException p) {
-            message = concatAndPrint(message, "... " + p + ": password confirmation failed");
+            message = concatAndPrint(message, "... " + w);
         } finally {
             message = concatAndPrint(message, "... checkPassword method completed");
         }

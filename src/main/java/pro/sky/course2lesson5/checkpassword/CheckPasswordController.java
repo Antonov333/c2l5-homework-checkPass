@@ -16,6 +16,6 @@ public class CheckPasswordController {
 
     @GetMapping("/checkpassword")
     public String callCheckPassword() {
-        return checkPasswordService.wrapCheckPassword("John", "D_1hWiKjjP_9", "D_1hWiKjjP_9");
+        return checkPasswordService.wrapCheckPassword("John", "D_1hWiKjjP_901234567890123456789", " D_1hWiKjjP_9");
     }
 }
