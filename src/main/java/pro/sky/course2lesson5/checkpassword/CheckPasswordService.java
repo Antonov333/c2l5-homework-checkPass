@@ -11,7 +11,7 @@ public class CheckPasswordService {
         if (!allCharsValid(login) || login.length() > 20) {
             throw new WrongLoginException();
         }
-        if (!allCharsValid(password) || login.length() > 19) {
+        if (!allCharsValid(password) || password.length() > 19) {
             throw new WrongPasswordException();
         }
         if (!password.equals(confirmPassword)) {
@@ -28,6 +28,11 @@ public class CheckPasswordService {
             }
         }
         return b;
+    }
+
+    private static String concatAndPrint(String head, String tail) {
+        System.out.println(tail);
+        return head + tail + "<br>";
     }
 
     public String wrapCheckPassword(String login, String password, String confirmPassword) {
@@ -51,15 +56,9 @@ public class CheckPasswordService {
         return "<h1><b>checkPassword method wrapping page</b></h1><br>" + message;
     }
 
-
     public String welcome() {
         return "<h1><b>Welcome to Exceptions homework (Course2, Lesson 5)</b></h1><br>" +
                 "<a href=\"http://localhost:8080/checkpassword\"><b>Please click here to run checkPassword method</b></a>";
-    }
-
-    private static String concatAndPrint(String head, String tail) {
-        System.out.println(tail);
-        return head + tail + "<br>";
     }
 }
 
