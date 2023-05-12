@@ -6,7 +6,7 @@ public class CheckPasswordApplication {
         String login = "John",
                 password = "D_1hWiKjjP_9",
                 confirmPassword = "D_1hWiKjjP_9";
-        System.out.println("We are calling checkPassword method to check LOGIN: " + login + " PASSWORD: " + password +
+        System.out.println("Calling checkPassword method to check LOGIN: " + login + " PASSWORD: " + password +
                 " and CONFIRM PASSWORD: " + confirmPassword);
         try {
             CheckPasswordService.checkPassword(login, password, confirmPassword);

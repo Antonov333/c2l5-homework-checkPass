@@ -1,13 +1,5 @@
 package pro.sky.course2lesson5.checkpassword;
 
-/**
- * 1) Совсем не обязательно было делать контроллер и вывод в браузер. На данном этапе это не требовалось.
- * <p>
- * 2) Можно обойтись только двумя видами исключений WrongLoginException и WrongPasswordException и при выбрасывании
- * подкладывать в параметры конструктора нужное сообщение.
- */
-
-
 public class CheckPasswordService {
 
     public static void checkPassword(String login, String password, String confirmPassword)
