@@ -50,23 +50,33 @@ public class CheckPasswordService {
      * - Исключения обработаны в multi-catch block.
      */
 
-    public static void checkPassword(String login, String password, String confirmPassword) {
+    public static void checkPassword(String login, String password, String confirmPassword)
+            throws WrongLoginException, WrongPasswordException, PasswordConfirmationFailedException {
         System.out.println("checkPassword is checking LOGIN: " + login + " PASSWORD: " + password +
                 " and CONFIRM PASSWORD: " + confirmPassword);
         boolean b = allCharsValid(login);
         if (!allCharsValid(login) || login.length() > 20) {
-            throw new RuntimeException("Wrong login format");
+            throw new WrongLoginException();
         }
         if (!allCharsValid(password) || login.length() > 19) {
-            throw new RuntimeException("Wrong password format");
+            throw new WrongPasswordException();
         }
         if (!password.equals(confirmPassword)) {
-            throw new RuntimeException("Password confirmation failed");
+            throw new PasswordConfirmationFailedException();
         }
     }
 
+    public String wrapCheckPassword(String login, String password, String confirmPassword) {
+        try {
+            CheckPasswordService.checkPassword(login, password, confirmPassword);
+        } catch (RuntimeException runtimeException) {
+            System.out.println("runtimeException = " + runtimeException);
+        } finally {
+            return "checkPassword method catched completed";
+        }
+    }
 
-    public static boolean allCharsValid(String string) {
+    private static boolean allCharsValid(String string) {
         boolean b = true;
         for (char c : string.toCharArray()) {
             if (!Character.isLetterOrDigit(c) && c != '_') {
@@ -75,6 +85,11 @@ public class CheckPasswordService {
             }
         }
         return b;
+    }
+
+    public String welcome() {
+        return "<h1><b>Welcome to Exceptions homework (Course2, Lesson 5)</b></h1><br><br>" +
+                "<a href=\"http://localhost:8080/cpm\">Please click here to run checkPassword method</a>";
     }
 }
 
